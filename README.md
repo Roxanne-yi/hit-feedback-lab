@@ -1,3 +1,120 @@
-# hit-feedback-lab
-UE内部工具箱，用来测试局内交互反馈
-点击index.html体验
+# In-game Environment Web Demo
+
+一个基于单文件 `index.html` 的 3D 交互 Demo，支持：
+
+- 角色移动与视角控制（桌面/移动端）
+- 普攻与技能按钮交互
+- 飘字反馈（伤害/治疗）
+- 音效面板（武器切换、音量、音频路径）
+- 曲线可视化编辑（含自定义 Bezier）
+
+## 目录结构
+
+```text
+.
+├─ index.html
+└─ assets/
+   └─ sound/
+      ├─ gun_fire.mp3
+      ├─ sword_slash.mp3
+      └─ hammer_hit.mp3
+```
+
+## 快速开始（本地运行）
+
+请不要直接双击 `index.html`，需要 HTTP 服务。
+
+```bash
+# 在项目根目录任选其一
+npx serve .
+# 或
+npx --yes http-server -p 8080
+# 或
+python -m http.server 8080
+```
+
+打开浏览器访问终端输出地址（常见为 `http://127.0.0.1:8080`）。
+
+## GitHub / Gitee Pages 部署
+
+本项目已使用相对路径（`./assets/...`），可直接部署到子路径站点（如 `username.github.io/repo-name/`）。
+
+### GitHub Pages
+
+1. 推送代码到仓库（`index.html` 与 `assets/` 在仓库根目录）。
+2. 进入仓库 `Settings` -> `Pages`。
+3. `Build and deployment` 选择 `Deploy from a branch`。
+4. 选择分支（如 `main`）与目录（`/ (root)`），保存。
+5. 等待部署完成后访问站点 URL。
+
+### Gitee Pages
+
+1. 推送代码到 Gitee 仓库。
+2. 在仓库页面开启 Pages 服务。
+3. 选择部署分支（如 `master`/`main`）并发布。
+4. 访问生成的 Pages 链接。
+
+## 如何使用
+
+### 基本操作
+
+- **移动端**：
+  - 左侧摇杆：控制角色移动
+  - 右侧空白区域：拖动旋转视角
+  - `Jump`：跳跃
+  - `Crouch`：按住下蹲，松开恢复
+- **桌面端**：
+  - 左侧可鼠标拖动摇杆
+  - 右侧可鼠标右键/中键拖动视角
+  - 可直接点击右侧动作按钮（`Attack`, `S1/S2/S3`, `Jump`, `Crouch`）
+
+### 战斗与反馈
+
+- `Attack`：普通攻击
+- `Auto` 复选框：开启/关闭自动连续攻击
+- 武器切换会联动攻击手感参数与音效（枪/短剑/钝器）
+- 命中后出现浮动数值反馈
+
+### 音效面板
+
+- 点击右上角 `🔊` 打开音效面板
+- 可调整：
+  - 当前武器音效类型
+  - 全局音量
+  - 高级路径（`PATH_GUN / PATH_DAGGER / PATH_BLUNT`）
+- 首次用户交互会触发音频 warm-up，降低移动端自动播放限制导致的静音问题
+
+### 曲线编辑
+
+- 设置面板中可调整反馈曲线
+- 支持预设曲线与自定义 Bezier 曲线
+- 自定义模式下可拖拽锚点与手柄实时预览
+
+## 常见问题
+
+### 1) 页面能打开但没有音效
+
+- 先在页面内进行一次点击/触摸（浏览器需要用户手势解锁音频）
+- 检查音效面板里的路径是否为相对路径（如 `./assets/sound/gun_fire.mp3`）
+- 打开浏览器控制台确认 MP3 请求是否为 200
+
+### 2) 部署后 MP3 404
+
+- 确认仓库中存在 `assets/sound/*.mp3`
+- 确认部署分支与目录正确（应包含 `index.html` 和 `assets/`）
+- 不要把音频路径写成错误绝对路径
+
+### 3) 手机无法访问本地调试地址
+
+- 启动服务时监听 `0.0.0.0`，并使用电脑局域网 IP 访问
+- 确认手机与电脑在同一网络，且防火墙未拦截对应端口
+
+## 技术说明
+
+- 核心文件：`index.html`（含样式、交互逻辑、渲染与 UI）
+- 依赖：通过 CDN 加载 `three`、`cannon-es`、`tween.js`、`lil-gui`
+- 音频资源：`assets/sound/*.mp3`
+
+## License
+
+如需开源发布，请在此补充许可证（例如 MIT）。
