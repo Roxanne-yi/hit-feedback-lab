@@ -52,25 +52,6 @@ python -m http.server 8080
 
 打开浏览器访问终端输出地址（常见为 `http://127.0.0.1:8080`）。
 
-## GitHub / Gitee Pages 部署
-
-本项目已使用相对路径（`./assets/...`），可直接部署到子路径站点（如 `username.github.io/repo-name/`）。
-
-### GitHub Pages
-
-1. 推送代码到仓库（`index.html` 与 `assets/` 在仓库根目录）。
-2. 进入仓库 `Settings` -> `Pages`。
-3. `Build and deployment` 选择 `Deploy from a branch`。
-4. 选择分支（如 `main`）与目录（`/ (root)`），保存。
-5. 等待部署完成后访问站点 URL。
-
-### Gitee Pages
-
-1. 推送代码到 Gitee 仓库。
-2. 在仓库页面开启 Pages 服务。
-3. 选择部署分支（如 `master`/`main`）并发布。
-4. 访问生成的 Pages 链接。
-
 ## 如何使用
 
 ### 基本操作
